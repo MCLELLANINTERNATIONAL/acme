@@ -1,5 +1,5 @@
 'use client';
-
+ 
 import { CustomerField, InvoiceForm } from '@/app/lib/definitions';
 import {
   CheckIcon,
@@ -10,7 +10,7 @@ import {
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { updateInvoice } from '@/app/lib/actions';
-
+ 
 export default function EditInvoiceForm({
   invoice,
   customers,
@@ -19,10 +19,13 @@ export default function EditInvoiceForm({
   customers: CustomerField[];
 }) {
   const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
-  
-
+ 
+  const handleSubmit = async (formData: FormData) => {
+    await updateInvoiceWithId(formData);
+  };
+ 
   return (
-    <form action={updateInvoiceWithId}>
+    <form action={handleSubmit}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         Customer Name
         <div className="mb-4">
@@ -48,7 +51,7 @@ export default function EditInvoiceForm({
             <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
           </div>
         </div>
-
+ 
         {/* Invoice Amount */}
         <div className="mb-4">
           <label htmlFor="amount" className="mb-2 block text-sm font-medium">
@@ -69,7 +72,7 @@ export default function EditInvoiceForm({
             </div>
           </div>
         </div>
-
+ 
         {/* Invoice Status */}
         <fieldset>
           <legend className="mb-2 block text-sm font-medium">
